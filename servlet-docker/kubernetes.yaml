@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servlet-deployment
+  labels:
+    app: servlet
+spec:
+  selector:
+    matchLabels:
+      app: servlet
+  template:
+    metadata:
+      labels:
+        app: servlet
+    spec:
+      containers:
+      - name: servlet-container
+        image: image-registry.openshift-image-registry.svc:5000/[project-name]/servlet:latest
+        ports:
+        - containerPort: 9081
+      imagePullSecrets:
+      - name: docker-user-secret
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: servlet-service
+spec:
+  selector:
+    app: servlet
+  ports:
+  - protocol: TCP
+    port: 9081
+---
+apiVersion: v1
+kind: Route
+metadata:
+  name: servlet-route
+spec:
+  to:
+    kind: Service
+    name: servlet-service

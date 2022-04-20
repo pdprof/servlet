@@ -1,0 +1,50 @@
+<server description="Liberty server for servlet test">
+
+  <featureManager>
+      <feature>restConnector-2.0</feature>
+      <feature>adminCenter-1.0</feature>
+      <feature>jakartaee-8.0</feature>
+  </featureManager>
+  
+  <httpEndpoint httpPort="9080" httpsPort="9443"
+      id="defaultHttpEndpoint" accessLoggingRef="pdprofAccessLogging" host="*" />
+  <virtualHost id="default_host" allowFromEndpointRef="defaultHttpEndpoint">
+      <hostAlias>*:9080</hostAlias>
+      <hostAlias>*:9443</hostAlias>
+  </virtualHost>
+  
+  <httpEndpoint httpPort="9081" httpsPort="9444"
+      id="customHttpEndpoint" accessLoggingRef="pdprofAccessLogging" host="*" />
+  <virtualHost id="custom_host" allowFromEndpointRef="customHttpEndpoint">
+      <hostAlias>*:80</hostAlias>
+      <hostAlias>*:9081</hostAlias>
+      <hostAlias>*:9444</hostAlias>
+  </virtualHost>
+
+  <basicRegistry id="basic">
+      <user name="wsadmin" password="passw0rd" />
+  </basicRegistry>
+
+  <administrator-role>
+      <user>wsadmin</user>
+  </administrator-role>
+
+  <httpAccessLogging id="pdprofAccessLogging"
+		logFormat='%h %u %t "%r" %s %b %{remote}p %D %{JSESSIONID}C %{Set-Cookie}o' />
+
+  <logging  traceSpecification="com.ibm.ws.webcontainer*=all:com.ibm.wsspi.webcontainer*=all:HTTPChannel=all:GenericBNF=all:HTTPDispatcher=all"
+      traceFileName="trace.log"
+      maxFileSize="20"
+      maxFiles="10"
+      traceFormat="BASIC" />
+
+  <application location="pdpro.20110516.ear">
+      <web-bnd moduleName="Hang">
+          <virtual-host name="custom_host" />
+      </web-bnd>
+      <web-bnd moduleName="Crash">
+          <virtual-host name="custom_host" />
+      </web-bnd>
+  </application>
+  <applicationManager autoExpand="true"/>
+</server>

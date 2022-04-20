@@ -8,8 +8,8 @@ git clone https://github.com/pdprof/servlet.git
 ```
 
 - Start eclipse
-- Import General > Existing Projects into Workspace
-- Select cloned git directory and hello project and Import
+- Import General > Projects from Folder or Archive
+- Select cloned git directory as Import source and Folder hello as Import Maven
 - right click on hello project.
 - select Maven > Update project
 - Check hello project and push OK button.

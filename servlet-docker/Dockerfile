@@ -14,5 +14,6 @@ RUN mkdir -p /pdprof/share \
 COPY --chown=1001:0 config/server.xml /config/
 COPY --chown=1001:0 config/jvm.options /config/
 COPY --chown=1001:0 apps/pdpro.20110516.ear /config/apps/
+COPY --chown=1001:0 apps/hello.war /config/apps/
 
 USER 1001

@@ -47,4 +47,9 @@
       </web-bnd>
   </application>
   <applicationManager autoExpand="true"/>
+  <webApplication id="hello" location="hello.war" name="hello">
+      <web-bnd moduleName="hello">
+          <virtual-host name="default_host"/>
+      </web-bnd>
+  </webApplication>
 </server>
